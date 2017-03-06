@@ -20,20 +20,11 @@ V(net)$shape=V(net)$mode
 V(net)$shape=gsub("1","square",V(net)$shape)
 V(net)$shape=gsub("0","circle",V(net)$shape)
 V(net)$font=V(net)$type + 1
-
-
-clp <- cluster_label_prop(net)
-plot(clp, net, edge.arrow.size=0, vertex.label = NA, vertex.color=V(net)$color)
-
 cfg <- cluster_fast_greedy(as.undirected(net))
-plot(cfg, as.undirected(net), vertex.label = NA)
-
 V(net)$community <- cfg$membership
-colrs <- adjustcolor(palette(rainbow(7)), alpha=1)
 colrs  = brewer.pal(7,"Dark2")
 V(net)$color=colrs[V(net)$community]
 V(net)$label.color= V(net)$color
-
 
 subs = sum(V(net)$mode)
 mods = vcount(net)-subs
@@ -53,3 +44,8 @@ plot(net, edge.arrow.size = 0,
 title(main, cex.main=3)
 text(0,1,sprintf('# mods = %s, # subs = %s',mods,subs),cex=2, font=3)
 dev.off()
+
+tkid <- tkplot(net)
+l <- tkplot.getcoords(tkid) # grab the coordinates from tkplot
+tk_close(tkid, window.close = T)
+plot(net, layout=l)

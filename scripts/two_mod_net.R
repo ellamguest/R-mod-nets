@@ -1,13 +1,13 @@
 library("igraph")
 
 # IMPORT DATA
-sub = 't_d'
-version = 3
-filename="visuals/td_two_mode_net(d>2).png"
-filename2="visuals/td_two_mode_net(d>2)mods.png"
-main='r/The_Donald Co-moderation Network (Sub d>2)'
-width=1500
-height=1500
+# sub = 't_d'
+# version = 3
+# filename="visuals/td_two_mode_net(d>2).png"
+# filename2="visuals/td_two_mode_net(d>2)mods.png"
+# main='r/The_Donald Co-moderation Network (Sub d>2)'
+# width=1500
+# height=1500
 
 # 
 # sub = 't_d'
@@ -43,11 +43,6 @@ V(net)$label.color = V(net)$color
 V(net)$label.font = V(net)$type+1 # redditors = plain, subs = bold
 V(net)$label.cex = 2
 V(net)$size=2
-
-### SELECTING FOR LARGE COMPONETS
-clu = components(net, mode = c("weak", "strong"))
-giant = mapply(c, groups(clu)[1], SIMPLIFY=FALSE)
-sub = induced_subgraph(net, unlist(giant))
 
 ### PLOT
 layout=layout.kamada.kawai(net)
