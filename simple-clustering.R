@@ -18,6 +18,14 @@ V(net)$shape=gsub("0","circle",V(net)$shape)
 V(net)$font=V(net)$type + 1
 E(net)$arrow.size = 0
 
+# Set colors to plot the distances:
+dist.from.CMV <- distances(net, v=V(net)[name=="changemyview"], 
+                           to=V(net), weights=NA)
+oranges <- colorRampPalette(c("dark red", "gold"))
+col <- oranges(max(dist.from.CMV)+1)
+col <- col[dist.from.CMV+1]
+V(net)$dist = col
+
 layout = layout.kamada.kawai(net)
 
 # simple plot of two-mod
@@ -29,35 +37,45 @@ pr=bipartite.projection(net)
 subs = pr$proj2
 V(subs)$degree = degree(subs)
 
+dist.from.CMV <- distances(subs, v=V(subs)[name=="changemyview"], 
+                           to=V(subs), weights=NA)
+oranges <- colorRampPalette(c("dark red", "gold"))
+col <- oranges(max(dist.from.CMV)+1)
+col <- col[dist.from.CMV+1]
+V(subs)$dist = col
+
 
 layout2 = layout.kamada.kawai(subs)
 layout3 = layout.fruchterman.reingold(subs)
 
-plot(subs.sp,
+plot(subs,
      layout = layout3,
      vertex.shape = 'none',
-     edge.width=E(subs.sp)$weight,
+     edge.width=E(subs)$weight,
      vertex.label.font=2,
-     vertex.label.cex=(log(V(subs)$degree))/3)
+     vertex.label.cex=(log(V(subs)$degree))/3,
+     vertex.label.color=V(subs)$dist)
 
 
 # sparsifying network
-hist(E(subs)$weight)
-mean(E(subs)$weight)
-sd(E(subs)$weight)
 
-cut.off <- mean(E(subs)$weight)
-subs.sp <- delete_edges(subs, E(subs)[weight<2])
-plot(subs.sp) 
+layout3 = layout.fruchterman.reingold(subs)
 
-layout3 = layout.fruchterman.reingold(subs.sp)
-
-plot(subs.sp,
+plot(subs,
      layout = layout3,
      vertex.shape = 'none',
-     edge.width=E(subs.sp)$weight,
+     edge.width=E(subs)$weight,
      vertex.label.font=2,
      vertex.label.cex=(log(V(subs)$degree))/3)
+
+# colour distance from changemyview
+
+
+
+
+
+plot(net, vertex.color=col, vertex.label=dist.from.CMV, edge.arrow.size=.6, 
+     vertex.label.color="white")
 
 # 
 # # w/ clustering
