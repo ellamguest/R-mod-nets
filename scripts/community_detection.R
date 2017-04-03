@@ -2,11 +2,11 @@ library("igraph")
 library(RColorBrewer)
 
 ### IMPORT DATA
-sub = 't_d'
-version = 3
-main='r/The_Donald Co-moderation Network (Sub d>2)'
-width=1500
-height=1500
+# sub = 't_d'
+# version = 3
+# main='r/The_Donald Co-moderation Network (Sub d>2)'
+# width=1500
+# height=1500
 
 # sub = 't_d'
 # version = 2
@@ -14,11 +14,11 @@ height=1500
 # width=1500
 # height=1500
 # 
-# sub = 'cmv'
-# version = 2
-# main='r/changemyview Co-moderation Network'
-# width=1300
-# height=1300
+sub = 'cmv'
+version = ''
+main='r/changemyview Co-moderation Network'
+width=1300
+height=1300
 
 ### DEFINE NETWORK
 edges = read.csv(sprintf('/Users/emg/Programmming/GitHub/R-mod-nets/%s/data/edgelist_shared%s.csv', sub, version), header=T)
@@ -88,7 +88,7 @@ clustering = cluster_leading_eigen(subs)
 V(subs)$community <- clustering$membership
 cluname = 'cle'
 filename = sprintf("visuals/%s_sub_net%s(%s).png", sub, version, cluname) 
-png(filename=filename, width=width,height=height)
+#png(filename=filename, width=width,height=height)
 plot(clustering, subs, edge.arrow.size = 0, 
      layout = layout,
      edge.curved = 0.2,

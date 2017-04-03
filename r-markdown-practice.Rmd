@@ -1,0 +1,20 @@
+---
+title: "R-markdown-practice"
+author: "Ella Guest"
+date: "31/03/2017"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE)
+```
+### Clustering using leading eigenvalue
+
+The following plot shoes the moderator network of r/ChangeMyView. The clusters were calculted using the leading eigenvalue method.
+
+```{r warning=FALSE}
+library("igraph")
+library(RColorBrewer)
+source("/Users/emg/Programming/GitHub/R-mod-nets/simple-clustering.R")
+```
+
