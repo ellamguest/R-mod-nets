@@ -42,9 +42,9 @@ png(filename='/Users/emg/Google Drive/PhD/presenting/ss_phd_seminar_april_17/vis
   par(mfrow=c(2,2))
   
 deg <- degree(mods1, mode="all")
-hist(deg, breaks=20, xlab="Degree",
+hist(E(mods1)$weight, breaks=5, xlab="Degree",
      cex.lab=1.2, cex.main=1.4,
-     main="Histogram of CMV mod degree")
+     main="Histogram of CMV mod tie weights")
 
 deg.dist <- degree_distribution(mods1, cumulative=T, mode="all")
 plot(rev(deg.dist),  pch=19, cex=1.2, col="orange",
