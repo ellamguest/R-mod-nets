@@ -18,11 +18,11 @@ pr1=bipartite.projection(net1)
 subs1 = pr1$proj1
 E(mods1)$arrow.size = 0
 V(mods1)$degree = degree(mods1)
-# V(subs1)$cmv = as.integer(V(subs1)$name=='changemyview')
-# V(subs1)$color=V(subs1)$cmv
-# V(subs1)$color=gsub("1","red",V(subs1)$color)
-# V(subs1)$color=gsub("0","black",V(subs1)$color)
-# V(subs1)$color
+V(subs1)$cmv = as.integer(V(subs1)$name=='changemyview')
+V(subs1)$color=V(subs1)$cmv
+V(subs1)$color=gsub("1","red",V(subs1)$color)
+V(subs1)$color=gsub("0","black",V(subs1)$color)
+V(subs1)$color
 
 ## TD NETWORK
 edges2 = read.csv('/Users/emg/Programming/GitHub/the_donald_project/tidy_data/edgelist_subset.csv')
@@ -40,11 +40,11 @@ E(mods2)$arrow.size = 0
 V(mods2)$degree = degree(mods2)
 
 # highlight TD in red
-# V(subs2)$td = as.integer(V(subs2)$name=='The_Donald')
-# V(subs2)$color=V(subs2)$td
-# V(subs2)$color=gsub("1","red",V(subs2)$color)
-# V(subs2)$color=gsub("0","black",V(subs2)$color)
-# V(subs2)$color
+V(subs2)$td = as.integer(V(subs2)$name=='The_Donald')
+V(subs2)$color=V(subs2)$td
+V(subs2)$color=gsub("1","red",V(subs2)$color)
+V(subs2)$color=gsub("0","black",V(subs2)$color)
+V(subs2)$color
 
 
 ## PLOTTING SUBREDDIT NETWORKS
@@ -52,14 +52,18 @@ png(filename='/Users/emg/Google Drive/PhD/presenting/ss_phd_seminar_april_17/vis
     width=500,height=225)
 
 par(mfrow=c(1,2))
-layout1 = layout.fruchterman.reingold(mods1)
-plot(mods1,
+layout1 = layout.fruchterman.reingold(subs1)
+#layout1 = layout.lgl(subs1)
+plot(subs1,
      layout = layout1,
-     vertex.shape = 'none',
-     edge.width=log(E(mods1)$weight),
+     #vertex.shape = 'none',
+     vertex.size = 2,
+     vertex.color = V(subs1)$color,
+     edge.width=log(E(subs1)$weight),
+     vertex.label = NA,
      vertex.label.font=1,
      vertex.label.cex=0.85,
-     vertex.label.color='blue',
+     vertex.label.color=V(subs1)$color,
      main = 'CMV moderator network')
 #dev.off()
 
